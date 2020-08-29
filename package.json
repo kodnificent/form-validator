@@ -1,0 +1,29 @@
+{
+  "name": "form-validator",
+  "version": "1.0.0",
+  "description": "Javascript library for client side html form validation.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "cross-env NODE_ENV=production webpack --no-progress --hide-modules",
+    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "watch": "npm run dev -- --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodnificent/form-validator.git"
+  },
+  "keywords": [],
+  "author": "kodnificent <mbamaravictor@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kodnificent/form-validator/issues"
+  },
+  "homepage": "https://github.com/kodnificent/form-validator#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "eslint": "^7.7.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
