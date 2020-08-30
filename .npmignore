@@ -11,6 +11,9 @@
 /.github
 /demo
 .esdoc.json
+.editorconfig
+.eslintignore
+.eslintrc.js
 
 npm-debug.log*
 yarn-debug.log*
@@ -19,7 +22,6 @@ yarn-error.log*
 # Development folders and files
 src
 tests
-.travis.yml
 webpack.mix.js
 CHANGELOG.md
 README.md
