@@ -4,7 +4,7 @@
   "description": "Javascript library for client side html form validation.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "./node_modules/.bin/jest",
     "build": "cross-env NODE_ENV=production webpack --no-progress --hide-modules",
     "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
     "watch": "npm run dev -- --watch"
