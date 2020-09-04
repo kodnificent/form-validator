@@ -1,10 +1,10 @@
 export default class Required {
   static name() {
-    'required';
+    return 'required';
   }
 
-  static passes(fieldValue) {
-    return fieldValue;
+  static passes(value) {
+    return value;
   }
 
   static message() {

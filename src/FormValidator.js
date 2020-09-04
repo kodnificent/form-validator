@@ -15,15 +15,18 @@ export default class FormValidator {
    * @param {Object} options.messages
    * @param {Object} options.placeholders
    * @param {Object|string} options.rules
+   * @param {boolean} options.onBlur
+   * @param {boolean} options.onInput
    * @param {string} options.fieldSelector
    * @param {string} options.feedbackSelector
    * @param {Function} options.beforeValidate
    * @param {Function} options.onInvalid
+   * @param {Function|boolean} options.onChange
    * @param {Function} options.validated
    */
   constructor(selector = null, options = {}) {
     // we merge option props into the class
-    const mergedOptions = { ...FormValidator.validatorOptions(), ...options };
+    const mergedOptions = { ...FormValidator.validatorMixinOptions(), ...options };
 
     Object.keys(mergedOptions).forEach((key) => {
       this[key] = this[key] ?? mergedOptions[key];
@@ -87,12 +90,18 @@ export default class FormValidator {
         fields[name] = data;
       });
     }
-    Object.keys(fields).forEach((name) => {
+
+    Object.values(fields).forEach((field) => {
       // next we assign the feedback selector value
       // and query the feedback el to each field.
-      const field = fields[name];
-      field.feedbackSelector = this.feedbackSelector.replace(':attribute', name);
+      field.feedbackSelector = this.feedbackSelector.replace(':attribute', field.attribute);
       field.feedbackEl = this.$form.querySelector(field.feedbackSelector);
+
+      if (typeof this.onChange === 'function') {
+        field.el.addEventListener('change', (event) => {
+          this.onChange.call(this, event, field);
+        });
+      }
     });
 
     this.$fields = fields;
@@ -108,44 +117,85 @@ export default class FormValidator {
     // to avoid attaching an event twice and also, the form exists.
     if (this.$attachedSubmitEvent || !this.$form) return;
 
-    this.$form.addEventListener('submit', this.$handleSubmit);
+    this.$form.addEventListener('submit', (event) => this.$handleValidation(event));
 
     this.$attachedSubmitEvent = true;
   }
 
   /**
-   * Handle the form submit event.
+   * Handle the form validation event.
    *
    * @param {Event} event
    */
-  $handleSubmit(event) {
-    this.beforeValidate.call(this, event);
+  $handleValidation(event) {
+    if (typeof this.beforeValidate === 'function') this.beforeValidate.call(this, event);
 
-    const result = FormValidator.validate();
+    const result = FormValidator.validate(this.$fieldValues(), this.$fields);
 
     if (result.invalid) {
-      return this.onInvalid.call(this, event, result.errors);
+      return typeof this.onInvalid === 'function'
+        ? this.onInvalid.call(this, event, result.errors)
+        : this.onInvalid;
     }
 
-    return this.validated.call(this, result.data);
+    return typeof this.validated === 'function'
+      ? this.validated.call(this, result.data)
+      : this.validated;
+  }
+
+  /**
+   * Get field values.
+   */
+  $fieldValues() {
+    const formData = new FormData(this.$form);
+    const data = {};
+
+    Object.values(this.$fields).forEach((field) => {
+      const multipleValue = formData.getAll(field.attribute);
+      const singleValue = formData.get(field.attribute);
+      let value;
+
+      switch (field.el.type) {
+      case 'file' && field.el.multiple:
+        value = multipleValue;
+        break;
+      case 'select-multiple':
+        value = multipleValue;
+        break;
+      case 'checkbox':
+        value = multipleValue;
+        break;
+      default:
+        value = singleValue;
+        break;
+      }
+
+      data[field.attribute] = value;
+    });
+
+    return data;
   }
 
   /**
    * Get validator options value.
    */
-  static validatorOptions() {
-    const validatorOptions = typeof validatorMixin.options === 'function' ? validatorMixin.options.call(validatorMixin) : validatorMixin.options;
+  static validatorMixinOptions() {
+    const options = typeof validatorMixin.options === 'function'
+      ? validatorMixin.options.call(validatorMixin)
+      : validatorMixin.options;
 
-    return validatorOptions;
+    return options;
   }
 
   /**
    * Validate form fields against its rules.
    *
-   * @param {Object} data
-   * @param {Object} fields
-   * @param {string} fields.attribute
-   * @param {array} fields.rules
+   * @param {{fieldName: any}} data
+   * An object containing field names as key and field value as value.
+   *
+   * @param {{fieldName: {attribute: string, rules: array}}} fields
+   * An object containing fields with the field name as key.
+   * The value must contain the field object with atleast attribute and rules properties.
    */
   static validate(data, fields) {
     const result = {
@@ -154,8 +204,7 @@ export default class FormValidator {
       data,
     };
 
-    Object.keys(fields).forEach((name) => {
-      const field = fields[name];
+    Object.values(fields).forEach((field) => {
       const messages = [];
 
       field.rules.some((ruleName) => {
@@ -165,7 +214,7 @@ export default class FormValidator {
         // note that if the rule does not exist, we still assign an error to the field.
         const validator = FormValidator.findRule(ruleName);
 
-        if (validator?.passes(data[field.attribute])) return false;
+        if (validator?.passes(data[field.attribute], data)) return false;
 
         const validatorMessage = validator?.message() ?? 'Invalid rule';
 
@@ -255,7 +304,9 @@ export default class FormValidator {
    * @param {string} ruleName
    */
   static findRule(ruleName) {
-    return this.rules().filter((rule) => rule.name() === ruleName)[0];
+    const validationRule = this.rules().filter((rule) => rule.name() === ruleName)[0];
+
+    return validationRule;
   }
 
   static rules() {

@@ -16,6 +16,7 @@ export default {
       feedbackSelector: '[data-:attribute-feedback]',
       beforeValidate: this.beforeValidate,
       onInvalid: this.onInvalid,
+      onChange: this.onChange,
       validated: this.validated,
     };
   },
@@ -25,8 +26,33 @@ export default {
    *
    * @param {Object} event
    */
-  beforeValidate: () => {
-    //
+  beforeValidate() {
+    Object.values(this.$fields).forEach((field) => {
+      field.feedbackEl.innerText = '';
+    });
+  },
+
+  /**
+   * Callback to call when a field's value changes.
+   *
+   * @param {Event} event
+   * @param {Object} field
+   */
+  onChange(event, field) {
+    if (!field.feedbackEl) return;
+
+    field.feedbackEl.innerText = '';
+
+    const { attribute } = field;
+    const fields = {};
+
+    fields[attribute] = field;
+
+    const result = this.constructor.validate(this.$fieldValues(), fields);
+
+    if (!result.invalid) return;
+
+    field.feedbackEl.innerText = result.errors[attribute];
   },
 
   /**
@@ -35,18 +61,20 @@ export default {
    * @param {Event} event
    * @param {array} errors
    */
-  onInvalid: (event, errors) => {
+  onInvalid(event, errors) {
     event.preventDefault();
 
-    errors.forEach(() => {
-      //
+    Object.values(this.$fields).forEach((field) => {
+      if (!field.feedbackEl) return;
+
+      field.feedbackEl.innerText = errors[field.attribute];
     });
   },
 
   /**
    * Callback to call after the form passes validation.
    */
-  validated: () => {
+  validated() {
     //
   },
 };

@@ -99,4 +99,10 @@ describe('Instantiated FormValidator', () => {
     expect(validatorField.rules.join('|')).toBe(field.rules);
     expect(validatorField.feedbackEl.id).toBe(field.feedbackId);
   });
+
+  test.only('should ', () => {
+    const fields = ['hello', 'world'];
+    const map = fields.map((field)=> field);
+    console.log(map);
+  });
 });
