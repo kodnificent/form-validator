@@ -25,7 +25,7 @@ export default {
    *
    * @param {Object} event
    */
-  beforeValidate: (event) => {
+  beforeValidate: () => {
     //
   },
 
@@ -38,7 +38,7 @@ export default {
   onInvalid: (event, errors) => {
     event.preventDefault();
 
-    errors.forEach((error) => {
+    errors.forEach(() => {
       //
     });
   },

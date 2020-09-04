@@ -12,5 +12,6 @@ module.exports = {
   },
   rules: {
     indent: ['error', 2],
+    'no-param-reassign': ['error', { props: false }],
   },
 };

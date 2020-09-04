@@ -1,4 +1,5 @@
-import validator from './mixins/validator';
+import validatorMixin from './mixins/validator';
+import coreRules from './rules';
 
 // Note that all protected methods, protected properties
 // and static properties should be prepended with $ to enable
@@ -28,7 +29,7 @@ export default class FormValidator {
       this[key] = this[key] ?? mergedOptions[key];
     });
 
-    this.$selector = selector ?? validator.selector;
+    this.$selector = selector ?? validatorMixin.selector;
     this.$form = document.querySelector(this.$selector);
 
     if (!this.$form) {
@@ -59,16 +60,17 @@ export default class FormValidator {
     // first we assign rules and field element to each field
     if (this.rules && typeof this.rules === 'object') {
       // we give precedence to rules property when setting fields
-      Object.keys(this.rules).forEach((name) => {
-        const rules = this.rules[name];
-        const selector = this.fieldSelector.replace(':attribute', name);
+      Object.keys(this.rules).forEach((fieldName) => {
+        const rules = this.rules[fieldName];
+        const selector = this.fieldSelector.replace(':attribute', fieldName);
 
         const data = {
+          attribute: fieldName,
           rules: typeof rules === 'string' ? rules.split('|') : rules,
           el: this.$form.querySelector(selector),
         };
 
-        fields[name] = data;
+        fields[fieldName] = data;
       });
     } else {
       // alternatively, we search through the html fields for rules.
@@ -77,6 +79,7 @@ export default class FormValidator {
         // @todo through error if name is null or undefined
 
         const data = {
+          attribute: name,
           rules: el.getAttribute('data-rules').split('|'),
           el,
         };
@@ -84,9 +87,9 @@ export default class FormValidator {
         fields[name] = data;
       });
     }
-
-    // next we assign the feedback selector value and query the feedback el to each field.
     Object.keys(fields).forEach((name) => {
+      // next we assign the feedback selector value
+      // and query the feedback el to each field.
       const field = fields[name];
       field.feedbackSelector = this.feedbackSelector.replace(':attribute', name);
       field.feedbackEl = this.$form.querySelector(field.feedbackSelector);
@@ -103,19 +106,17 @@ export default class FormValidator {
 
     // we check if the submit event hasn't been attached attached
     // to avoid attaching an event twice and also, the form exists.
-    if (this.$attachedSubmitEvent || !this.$form) return false;
+    if (this.$attachedSubmitEvent || !this.$form) return;
 
     this.$form.addEventListener('submit', this.$handleSubmit);
 
     this.$attachedSubmitEvent = true;
-
-    return this.$attachedSubmitEvent;
   }
 
   /**
    * Handle the form submit event.
    *
-   * @param {Object} event
+   * @param {Event} event
    */
   $handleSubmit(event) {
     this.beforeValidate.call(this, event);
@@ -133,25 +134,53 @@ export default class FormValidator {
    * Get validator options value.
    */
   static validatorOptions() {
-    const validatorOptions = typeof validator.options === 'function' ? validator.options.call(validator) : validator.options;
+    const validatorOptions = typeof validatorMixin.options === 'function' ? validatorMixin.options.call(validatorMixin) : validatorMixin.options;
 
     return validatorOptions;
   }
 
   /**
-   * Validate data against a set of rules.
+   * Validate form fields against its rules.
    *
-   * @param {array} data
-   * @param {array} rules
+   * @param {Object} data
+   * @param {Object} fields
+   * @param {string} fields.attribute
+   * @param {array} fields.rules
    */
-  static validate(data, rules) {
-    // const result = {
-    //   invalid: false,
-    // };
+  static validate(data, fields) {
+    const result = {
+      invalid: false,
+      errors: {},
+      data,
+    };
 
-    // data.forEach((data) => {
-    //   //
-    // });
+    Object.keys(fields).forEach((name) => {
+      const field = fields[name];
+      const messages = [];
+
+      field.rules.some((ruleName) => {
+        // the bail rule means we should stop validating after first validation.
+        if (ruleName === 'bail') return false;
+
+        // note that if the rule does not exist, we still assign an error to the field.
+        const validator = FormValidator.findRule(ruleName);
+
+        if (validator?.passes(data[field.attribute])) return false;
+
+        const validatorMessage = validator?.message() ?? 'Invalid rule';
+
+        let message = FormValidator.ruleMessage(ruleName) ?? validatorMessage;
+        message = message.replace(':attribute', field.attribute);
+        messages.push(message);
+
+        // we stop validating after first validation.
+        return field.rules[0] === 'bail' && field.rules[1] === ruleName;
+      });
+
+      if (messages.length > 0) result.errors[field.attribute] = messages;
+    });
+
+    result.invalid = Object.keys(result.errors).length > 0;
 
     return result;
   }
@@ -190,16 +219,49 @@ export default class FormValidator {
     if (!this.$ruleMessages) {
       this.$ruleMessages = messages;
     }
+
+    this.$ruleMessages = { ...this.$ruleMessages, ...messages };
+
+    return this;
   }
 
   /**
    * Get the custom rule message for a validation rule.
    *
-   * @param {string} name
+   * @param {string} ruleName
    */
-  static ruleMessage(name) {
-    const message = this.$ruleMessages?.[name];
+  static ruleMessage(ruleName) {
+    const message = this.$ruleMessages?.[ruleName];
 
     return message;
+  }
+
+  /**
+   * Add custom validation rules.
+   *
+   * @param  {...any} rules
+   */
+  static withRules(...rules) {
+    const customRules = this.$customRules ?? [];
+
+    this.$customRules = customRules.concat(rules);
+
+    return this;
+  }
+
+  /**
+   * Find a rule by name.
+   *
+   * @param {string} ruleName
+   */
+  static findRule(ruleName) {
+    return this.rules().filter((rule) => rule.name() === ruleName)[0];
+  }
+
+  static rules() {
+    const customRules = this.$customRules ?? [];
+    const rules = coreRules.concat(customRules);
+
+    return rules;
   }
 }
