@@ -6,8 +6,11 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   entry: './src/index.js',
   output: {
-    filename: 'index.js',
+    filename: isProduction ? 'form-validator.min.js' : 'form-validator.js',
     path: path.resolve(__dirname, 'dist'),
+    library: 'FormValidator',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
   },
   module: {
     rules: [

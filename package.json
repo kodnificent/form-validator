@@ -2,12 +2,14 @@
   "name": "form-validator",
   "version": "1.0.0",
   "description": "Javascript library for client side html form validation.",
-  "main": "dist/index.js",
+  "main": "dist/form-validator.js",
+  "module": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/jest",
-    "build": "cross-env NODE_ENV=production webpack --no-progress --hide-modules",
-    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
-    "watch": "npm run dev -- --watch"
+    "minified": "cross-env NODE_ENV=production webpack --no-progress --hide-modules",
+    "build": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "min": "npm run minified",
+    "watch": "npm run build -- --watch"
   },
   "repository": {
     "type": "git",
