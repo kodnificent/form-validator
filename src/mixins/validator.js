@@ -67,7 +67,7 @@ export default {
     Object.values(this.$fields).forEach((field) => {
       if (!field.feedbackEl) return;
 
-      field.feedbackEl.innerText = errors[field.attribute];
+      field.feedbackEl.innerText = errors[field.attribute] ?? '';
     });
   },
 

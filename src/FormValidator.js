@@ -33,7 +33,9 @@ export default class FormValidator {
     });
 
     this.$selector = selector ?? validatorMixin.selector;
-    this.$form = document.querySelector(this.$selector);
+    this.$form = this.$selector instanceof Element
+      ? this.$selector
+      : document.querySelector(this.$selector);
 
     if (!this.$form) {
       // @todo throw error

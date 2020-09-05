@@ -88,6 +88,13 @@ describe('Instantiated FormValidator', () => {
 
   const validator = new FormValidator();
 
+  test('should setup validator form element as selector', () => {
+    const el = document.querySelector(`[name=${formName}]`);
+    const newValidator = new FormValidator(el);
+
+    expect(validator.$form.name).toBe(formName);
+  });
+
   test('should assign our test form to its $form variable', () => {
     expect(validator.$form.name).toBe(formName);
   });
@@ -98,11 +105,5 @@ describe('Instantiated FormValidator', () => {
     expect(validatorField).toBeDefined();
     expect(validatorField.rules.join('|')).toBe(field.rules);
     expect(validatorField.feedbackEl.id).toBe(field.feedbackId);
-  });
-
-  test.only('should ', () => {
-    const fields = ['hello', 'world'];
-    const map = fields.map((field)=> field);
-    console.log(map);
   });
 });
