@@ -1,13 +1,16 @@
+import FormValidator from '../FormValidator';
+
+/* eslint-disable class-methods-use-this */
 export default class Required {
   static name() {
     return 'required';
   }
 
-  static passes(value) {
+  passes(value) {
     return value;
   }
 
-  static message() {
-    return 'The :attribute is required';
+  message() {
+    return FormValidator.$translation(Required.name());
   }
 }

@@ -1,9 +1,7 @@
 import validatorMixin from './mixins/validator';
-import coreRules from './rules';
 
-// Note that all protected methods, protected properties
-// and static properties should be prepended with $ to enable
-// one differentiate core methods or properties from props
+// Note that all properties and methods should be prepended with a $
+// to enable one differentiate core methods or properties from props
 // that were merged into the class.
 
 export default class FormValidator {
@@ -12,7 +10,6 @@ export default class FormValidator {
    *
    * @param {string} [selector]
    * @param {Object} [options]
-   * @param {Object} options.messages
    * @param {Object} options.placeholders
    * @param {Object|string} options.rules
    * @param {boolean} options.onBlur
@@ -26,7 +23,7 @@ export default class FormValidator {
    */
   constructor(selector = null, options = {}) {
     // we merge option props into the class
-    const mergedOptions = { ...FormValidator.validatorMixinOptions(), ...options };
+    const mergedOptions = { ...FormValidator.$validatorMixinOptions(), ...options };
 
     Object.keys(mergedOptions).forEach((key) => {
       this[key] = this[key] ?? mergedOptions[key];
@@ -48,11 +45,11 @@ export default class FormValidator {
   }
 
   /**
-   * Attach form placeholders to the static placeholders.
+   * Attach form placeholders to the static $placeholders.
    */
   $attachPlaceholders() {
     if (this.placeholders) {
-      FormValidator.withPlaceholders(this.placeholders);
+      FormValidator.$withPlaceholders(this.placeholders);
     }
   }
 
@@ -132,7 +129,7 @@ export default class FormValidator {
   $handleValidation(event) {
     if (typeof this.beforeValidate === 'function') this.beforeValidate.call(this, event);
 
-    const result = FormValidator.validate(this.$fieldValues(), this.$fields);
+    const result = FormValidator.$validate(this.$fieldValues(), this.$fields);
 
     if (result.invalid) {
       return typeof this.onInvalid === 'function'
@@ -181,7 +178,7 @@ export default class FormValidator {
   /**
    * Get validator options value.
    */
-  static validatorMixinOptions() {
+  static $validatorMixinOptions() {
     const options = typeof validatorMixin.options === 'function'
       ? validatorMixin.options.call(validatorMixin)
       : validatorMixin.options;
@@ -199,7 +196,7 @@ export default class FormValidator {
    * An object containing fields with the field name as key.
    * The value must contain the field object with atleast attribute and rules properties.
    */
-  static validate(data, fields) {
+  static $validate(data, fields) {
     const result = {
       invalid: false,
       errors: {},
@@ -213,14 +210,21 @@ export default class FormValidator {
         // the bail rule means we should stop validating after first validation.
         if (ruleName === 'bail') return false;
 
-        // note that if the rule does not exist, we still assign an error to the field.
-        const validator = FormValidator.findRule(ruleName);
+        const Rule = FormValidator.$findRule(ruleName);
 
-        if (validator?.passes(data[field.attribute], data)) return false;
+        if (!Rule) {
+          // note that if the rule does not exist,
+          // we still assign an error to the field.
+          messages.push('Invalid rule');
+          return false;
+        }
 
-        const validatorMessage = validator?.message() ?? 'Invalid rule';
+        const parameters = FormValidator.$ruleParameters(ruleName);
+        const validator = new Rule(parameters);
 
-        let message = FormValidator.ruleMessage(ruleName) ?? validatorMessage;
+        if (validator.passes(data[field.attribute], data)) return false;
+
+        let message = validator.message() ?? 'Invalid rule';
         message = message.replace(':attribute', field.attribute);
         messages.push(message);
 
@@ -242,7 +246,7 @@ export default class FormValidator {
    *
    * @param {Object} placeholders
    */
-  static withPlaceholders(placeholders) {
+  static $withPlaceholders(placeholders) {
     if (!this.$placeholders) {
       this.$placeholders = placeholders;
     }
@@ -251,51 +255,64 @@ export default class FormValidator {
   }
 
   /**
+   * Extract parameters from a given form rule.
+   *
+   * @param {string} ruleName
+   */
+  static $ruleParameters(ruleName) {
+    const parameters = ruleName.split(':', 2)[1]?.split(',');
+
+    return parameters ?? [];
+  }
+
+  /**
    * Get the placeholder value of an attribute.
    *
    * @param {string} attributeName
    */
-  static placeholder(attributeName) {
+  static $placeholder(attributeName) {
     const placeholder = this.$placeholders?.[attributeName] ?? attributeName;
 
     return placeholder;
   }
 
   /**
-   * Swap rule messages with a custom message.
+   * Translate rule messages.
    *
-   * @param {Object} messages
+   * @param {Object} transalations
+   * An object containing transalations with the rule name as key
+   * and transalation message as value.
    */
-  static withRuleMessages(messages) {
-    if (!this.$ruleMessages) {
-      this.$ruleMessages = messages;
+  static $withTranslations(transalations) {
+    if (!this.$translations) {
+      this.$translations = transalations;
     }
 
-    this.$ruleMessages = { ...this.$ruleMessages, ...messages };
+    this.$translations = { ...this.$translations, ...transalations };
 
     return this;
   }
 
   /**
-   * Get the custom rule message for a validation rule.
+   * Get the translated message for a validation rule.
    *
    * @param {string} ruleName
    */
-  static ruleMessage(ruleName) {
-    const message = this.$ruleMessages?.[ruleName];
+  static $translation(ruleName) {
+    const trans = this.$translations?.[ruleName];
 
-    return message;
+    return trans;
   }
 
   /**
-   * Add custom validation rules.
+   * Add a custom validation rule.
    *
-   * @param  {...any} rules
+   * @param  {...any} rule
    */
-  static withRules(...rules) {
+  static $withRule(...rule) {
     const customRules = this.$customRules ?? [];
 
-    this.$customRules = customRules.concat(rules);
+    this.$customRules = customRules.concat(rule);
 
     return this;
   }
@@ -305,16 +322,9 @@ export default class FormValidator {
    *
    * @param {string} ruleName
    */
-  static findRule(ruleName) {
-    const validationRule = this.rules().filter((rule) => rule.name() === ruleName)[0];
+  static $findRule(ruleName) {
+    const validationRule = this.$customRules?.filter((rule) => rule.name() === ruleName)[0];
 
     return validationRule;
-  }
-
-  static rules() {
-    const customRules = this.$customRules ?? [];
-    const rules = coreRules.concat(customRules);
-
-    return rules;
   }
 }

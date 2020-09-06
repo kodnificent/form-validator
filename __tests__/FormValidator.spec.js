@@ -4,21 +4,21 @@ describe('Static FormValidator', () => {
   test('should swap placeholders correctly', () => {
     const dob = 'Date of birth';
 
-    FormValidator.withPlaceholders({ dob });
+    FormValidator.$withPlaceholders({ dob });
 
-    expect(FormValidator.placeholder('dob')).toBe(dob);
+    expect(FormValidator.$placeholder('dob')).toBe(dob);
   });
 
   test('placeholder method should return same attribute name as default', () => {
-    expect(FormValidator.placeholder('account_number')).toBe('account_number');
+    expect(FormValidator.$placeholder('account_number')).toBe('account_number');
   });
 
-  test('should add rule messages correctly', () => {
-    const required = 'The :attribute is required';
+  test('should add rule translation correctly', () => {
+    const test = 'This is a test translation message.';
 
-    FormValidator.withRuleMessages({ required });
+    FormValidator.$withTranslations({ test });
 
-    expect(FormValidator.ruleMessage('required')).toBe(required);
+    expect(FormValidator.$translation('test')).toBe(test);
   });
 
   test('should register custom rules correctly', () => {
@@ -34,10 +34,10 @@ describe('Static FormValidator', () => {
       }
     }
 
-    FormValidator.withRules(customRule1, customRule2);
+    FormValidator.$withRule(customRule1, customRule2);
 
-    expect(FormValidator.findRule('customRule1').name()).toBe(customRule1.name());
-    expect(FormValidator.findRule('customRule2').name()).toBe(customRule2.name());
+    expect(FormValidator.$findRule('customRule1').name()).toBe(customRule1.name());
+    expect(FormValidator.$findRule('customRule2').name()).toBe(customRule2.name());
   });
 
   test('should validate form correctly', () => {
@@ -46,16 +46,16 @@ describe('Static FormValidator', () => {
         return 'test_rule1';
       }
 
-      static passes(value) {
+      passes(value) {
         return value === 'test';
       }
 
-      static message() {
+      message() {
         return 'Validation failed';
       }
     };
 
-    FormValidator.withRules(testRule1);
+    FormValidator.$withRule(testRule1);
 
     const data = {
       name: 'test',
@@ -73,10 +73,27 @@ describe('Static FormValidator', () => {
       }
     };
 
-    const result = FormValidator.validate(data, fields);
+    const result = FormValidator.$validate(data, fields);
 
-    expect(result.invalid).toBeTruthy()
+    expect(result.invalid).toBeTruthy();
     expect(Object.keys(result.errors).length).toEqual(1);
+  });
+
+  test('should extract rule parameters correctly', () => {
+    const rule = 'required_if:name,victor';
+    const parameter = FormValidator.$ruleParameters(rule);
+
+    expect(typeof parameter).toBe('object');
+    expect(parameter).toContain('name');
+    expect(parameter).toContain('victor');
+  });
+
+  test('rule parameters should return empty array when no parameters are set.', () => {
+    const rule = 'required';
+    const parameter = FormValidator.$ruleParameters(rule);
+
+    expect(typeof parameter).toBe('object');
+    expect(parameter.length).toEqual(0);
   });
 });
 
@@ -106,4 +123,6 @@ describe('Instantiated FormValidator', () => {
     expect(validatorField.rules.join('|')).toBe(field.rules);
     expect(validatorField.feedbackEl.id).toBe(field.feedbackId);
   });
+
+  test.todo('should validate submitted form correctly');
 });

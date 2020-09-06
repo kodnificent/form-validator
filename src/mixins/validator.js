@@ -9,7 +9,6 @@ export default {
    */
   options() {
     return {
-      messages: null,
       placeholders: null,
       rules: null,
       fieldSelector: '[name=:attribute]',
