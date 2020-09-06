@@ -13,12 +13,23 @@ describe('Static FormValidator', () => {
     expect(FormValidator.$placeholder('account_number')).toBe('account_number');
   });
 
+  /*
+  |--------------------------------------
+  | Translation Methods Test
+  |--------------------------------------
+   */
   test('should add rule translation correctly', () => {
     const test = 'This is a test translation message.';
 
     FormValidator.$withTranslations({ test });
 
     expect(FormValidator.$translation('test')).toBe(test);
+  });
+
+  test('translation method should return default translation if message not found', () => {
+    const expected = 'Invalid value for this field';
+
+    expect(FormValidator.$translation('unkown', expected)).toEqual(expected);
   });
 
   test('should register custom rules correctly', () => {

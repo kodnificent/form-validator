@@ -1,7 +1,6 @@
 import FormValidator from './FormValidator';
-import rules, { translations } from './rules';
+import rules from './rules';
 
 FormValidator.$withRule(...rules);
-FormValidator.$withTranslations(translations);
 
 export default FormValidator;

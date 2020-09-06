@@ -297,11 +297,12 @@ export default class FormValidator {
    * Get the translated message for a validation rule.
    *
    * @param {string} ruleName
+   * @param {string} [defaultMessage]
    */
-  static $translation(ruleName) {
+  static $translation(ruleName, defaultMessage = '') {
     const trans = this.$translations?.[ruleName];
 
-    return trans;
+    return trans ?? defaultMessage;
   }
 
   /**

@@ -11,6 +11,6 @@ export default class Required {
   }
 
   message() {
-    return FormValidator.$translation(Required.name());
+    return FormValidator.$translation(Required.name(), 'The :attribute field is required.');
   }
 }
