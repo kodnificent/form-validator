@@ -155,8 +155,8 @@ export default class FormValidator {
       let value;
 
       switch (field.el.type) {
-      case 'file' && field.el.multiple:
-        value = multipleValue;
+      case 'file':
+        value = field.el.multiple ? multipleValue : singleValue;
         break;
       case 'select-multiple':
         value = multipleValue;
