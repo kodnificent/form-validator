@@ -1,4 +1,5 @@
 import validatorMixin from './mixins/validator';
+import FormValidatorData from './FormValidatorData';
 
 // Note that all properties and methods should be prepended with a $
 // to enable one differentiate core methods or properties from props
@@ -70,6 +71,7 @@ export default class FormValidator {
           attribute: fieldName,
           rules: typeof rules === 'string' ? rules.split('|') : rules,
           el: this.$form.querySelector(selector),
+          els: this.$form.querySelectorAll(selector),
         };
 
         fields[fieldName] = data;
@@ -84,6 +86,7 @@ export default class FormValidator {
           attribute: name,
           rules: el.getAttribute('data-rules').split('|'),
           el,
+          els: this.$form.querySelectorAll(`[name=${name}]`),
         };
 
         fields[name] = data;
@@ -96,9 +99,12 @@ export default class FormValidator {
       field.feedbackSelector = this.feedbackSelector.replace(':attribute', field.attribute);
       field.feedbackEl = this.$form.querySelector(field.feedbackSelector);
 
+      // next we add a change event to all field elements
       if (typeof this.onChange === 'function') {
-        field.el.addEventListener('change', (event) => {
-          this.onChange.call(this, event, field);
+        [...field.els].forEach((el) => {
+          el.addEventListener('change', (event) => {
+            this.onChange.call(this, event, field);
+          });
         });
       }
     });
@@ -146,8 +152,9 @@ export default class FormValidator {
    * Get field values.
    */
   $fieldValues() {
-    const formData = new FormData(this.$form);
-    const data = {};
+    const formData = new FormValidatorData(this.$form);
+
+    const values = {};
 
     Object.values(this.$fields).forEach((field) => {
       const multipleValue = formData.getAll(field.attribute);
@@ -169,10 +176,10 @@ export default class FormValidator {
         break;
       }
 
-      data[field.attribute] = value;
+      values[field.attribute] = value;
     });
 
-    return data;
+    return values;
   }
 
   /**
