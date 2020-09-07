@@ -107,6 +107,17 @@ eval("function _arrayLikeToArray(arr, len) {\n  if (len == null || len > arr.len
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _arrayWithHoles(arr) {\n  if (Array.isArray(arr)) return arr;\n}\n\nmodule.exports = _arrayWithHoles;\n\n//# sourceURL=webpack://FormValidator/./node_modules/@babel/runtime/helpers/arrayWithHoles.js?");
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
@@ -162,6 +173,28 @@ eval("function _iterableToArray(iter) {\n  if (typeof Symbol !== \"undefined\" &
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _iterableToArrayLimit(arr, i) {\n  if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return;\n  var _arr = [];\n  var _n = true;\n  var _d = false;\n  var _e = undefined;\n\n  try {\n    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {\n      _arr.push(_s.value);\n\n      if (i && _arr.length === i) break;\n    }\n  } catch (err) {\n    _d = true;\n    _e = err;\n  } finally {\n    try {\n      if (!_n && _i[\"return\"] != null) _i[\"return\"]();\n    } finally {\n      if (_d) throw _e;\n    }\n  }\n\n  return _arr;\n}\n\nmodule.exports = _iterableToArrayLimit;\n\n//# sourceURL=webpack://FormValidator/./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function _nonIterableRest() {\n  throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\");\n}\n\nmodule.exports = _nonIterableRest;\n\n//# sourceURL=webpack://FormValidator/./node_modules/@babel/runtime/helpers/nonIterableRest.js?");
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/nonIterableSpread.js":
 /*!******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
@@ -170,6 +203,17 @@ eval("function _iterableToArray(iter) {\n  if (typeof Symbol !== \"undefined\" &
 /***/ (function(module, exports) {
 
 eval("function _nonIterableSpread() {\n  throw new TypeError(\"Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\");\n}\n\nmodule.exports = _nonIterableSpread;\n\n//# sourceURL=webpack://FormValidator/./node_modules/@babel/runtime/helpers/nonIterableSpread.js?");
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles */ \"./node_modules/@babel/runtime/helpers/arrayWithHoles.js\");\n\nvar iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit */ \"./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js\");\n\nvar unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray */ \"./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js\");\n\nvar nonIterableRest = __webpack_require__(/*! ./nonIterableRest */ \"./node_modules/@babel/runtime/helpers/nonIterableRest.js\");\n\nfunction _slicedToArray(arr, i) {\n  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();\n}\n\nmodule.exports = _slicedToArray;\n\n//# sourceURL=webpack://FormValidator/./node_modules/@babel/runtime/helpers/slicedToArray.js?");
 
 /***/ }),
 
@@ -262,7 +306,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Required; });\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ \"./node_modules/@babel/runtime/helpers/classCallCheck.js\");\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ \"./node_modules/@babel/runtime/helpers/createClass.js\");\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _FormValidator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../FormValidator */ \"./src/FormValidator.js\");\n\n\n\n/* eslint-disable class-methods-use-this */\n\nvar Required = /*#__PURE__*/function () {\n  function Required() {\n    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Required);\n  }\n\n  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Required, [{\n    key: \"passes\",\n    value: function passes(value) {\n      if (value instanceof File) return value.name !== '';\n      if (value instanceof Array && value[0] instanceof File) return value[0].name !== '';\n\n      if (value instanceof Array) {\n        // empty multiple file fields returns an array\n        // with the first value as empty string in some browsers\n        return value.length === 1 ? value[0] !== '' : value.length > 0;\n      }\n\n      if (value instanceof Object) return Object.keys(value).length > 0;\n      return value !== '' && value !== null && typeof value !== 'undefined';\n    }\n  }, {\n    key: \"message\",\n    value: function message() {\n      return _FormValidator__WEBPACK_IMPORTED_MODULE_2__[\"default\"].$translation(Required.name(), 'The :attribute field is required.');\n    }\n  }], [{\n    key: \"name\",\n    value: function name() {\n      return 'required';\n    }\n  }]);\n\n  return Required;\n}();\n\n\n\n//# sourceURL=webpack://FormValidator/./src/rules/Required.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Required; });\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ \"./node_modules/@babel/runtime/helpers/classCallCheck.js\");\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ \"./node_modules/@babel/runtime/helpers/createClass.js\");\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _FormValidator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../FormValidator */ \"./src/FormValidator.js\");\n\n\n\n/* eslint-disable class-methods-use-this */\n\nvar Required = /*#__PURE__*/function () {\n  function Required() {\n    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Required);\n  }\n\n  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(Required, [{\n    key: \"passes\",\n\n    /**\n     * Check if a field's value passes the validation rule.\n     *\n     * @param {any} value Value of the field to be validated\n     */\n    value: function passes(value) {\n      if (value instanceof File) return value.name !== '';\n      if (value instanceof Array && value[0] instanceof File) return value[0].name !== '';\n\n      if (value instanceof Array) {\n        // empty multiple file fields returns an array\n        // with the first value as empty string in some browsers\n        return value.length === 1 ? value[0] !== '' : value.length > 0;\n      }\n\n      if (value instanceof Object) return Object.keys(value).length > 0;\n      return value !== '' && value !== null && typeof value !== 'undefined';\n    }\n    /**\n     * Get the rule's error message.\n     */\n\n  }, {\n    key: \"message\",\n    value: function message() {\n      return _FormValidator__WEBPACK_IMPORTED_MODULE_2__[\"default\"].$translation(Required.name(), 'The :attribute field is required.');\n    }\n  }], [{\n    key: \"name\",\n\n    /**\n     * Get the name of the validation rule.\n     */\n    value: function name() {\n      return 'required';\n    }\n  }]);\n\n  return Required;\n}();\n\n\n\n//# sourceURL=webpack://FormValidator/./src/rules/Required.js?");
+
+/***/ }),
+
+/***/ "./src/rules/RequiredIf.js":
+/*!*********************************!*\
+  !*** ./src/rules/RequiredIf.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return RequiredIf; });\n/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ \"./node_modules/@babel/runtime/helpers/slicedToArray.js\");\n/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ \"./node_modules/@babel/runtime/helpers/classCallCheck.js\");\n/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ \"./node_modules/@babel/runtime/helpers/createClass.js\");\n/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _FormValidator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FormValidator */ \"./src/FormValidator.js\");\n/* harmony import */ var _Required__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Required */ \"./src/rules/Required.js\");\n\n\n\n\n/* eslint-disable class-methods-use-this */\n\n\n\nvar RequiredIf = /*#__PURE__*/function () {\n  /**\n   * Create an instance of the rule class\n   * @param {array} parameters\n   */\n  function RequiredIf(_ref) {\n    var _ref2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_ref, 2),\n        dependentField = _ref2[0],\n        value = _ref2[1];\n\n    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, RequiredIf);\n\n    this.other = dependentField;\n    this.value = value;\n  }\n  /**\n   * Get the name of the validation rule.\n   */\n\n\n  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default()(RequiredIf, [{\n    key: \"passes\",\n\n    /**\n     * Check if a field's value passes the validation rule.\n     *\n     * @param {any} value Value of the field to be validated\n     * @param {Object} values Values of other fields\n     */\n    value: function passes(value, values) {\n      return values[this.other] === this.value ? new _Required__WEBPACK_IMPORTED_MODULE_4__[\"default\"]().passes(value) : true;\n    }\n    /**\n     * Get the rule's error message.\n     */\n\n  }, {\n    key: \"message\",\n    value: function message() {\n      return _FormValidator__WEBPACK_IMPORTED_MODULE_3__[\"default\"].$translation(RequiredIf.name(), 'The :attribute field is required when :other is :value');\n    }\n  }], [{\n    key: \"name\",\n    value: function name() {\n      return 'required_if';\n    }\n  }]);\n\n  return RequiredIf;\n}();\n\n\n\n//# sourceURL=webpack://FormValidator/./src/rules/RequiredIf.js?");
 
 /***/ }),
 
@@ -274,7 +330,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Required__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Required */ \"./src/rules/Required.js\");\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ([_Required__WEBPACK_IMPORTED_MODULE_0__[\"default\"]]);\n\n//# sourceURL=webpack://FormValidator/./src/rules/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _Required__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Required */ \"./src/rules/Required.js\");\n/* harmony import */ var _RequiredIf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RequiredIf */ \"./src/rules/RequiredIf.js\");\n\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ([_Required__WEBPACK_IMPORTED_MODULE_0__[\"default\"], _RequiredIf__WEBPACK_IMPORTED_MODULE_1__[\"default\"]]);\n\n//# sourceURL=webpack://FormValidator/./src/rules/index.js?");
 
 /***/ })
 
