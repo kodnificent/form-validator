@@ -5,7 +5,8 @@ import Required from './Required';
 
 export default class RequiredIf {
   /**
-   * Create an instance of the rule class
+   * Create an instance of the rule class.
+   *
    * @param {array} parameters
    */
   constructor([dependentField, value]) {
