@@ -9,7 +9,8 @@
     "minified": "cross-env NODE_ENV=production webpack --no-progress --hide-modules",
     "build": "cross-env NODE_ENV=development webpack --progress --hide-modules",
     "min": "npm run minified",
-    "watch": "npm run build -- --watch"
+    "watch": "npm run build -- --watch",
+    "make:rule": "cp ./src/rules/stubs/rule.js.stub ./src/rules/RuleName.js"
   },
   "repository": {
     "type": "git",
