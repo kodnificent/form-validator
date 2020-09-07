@@ -47,7 +47,7 @@ export default {
 
     fields[attribute] = field;
 
-    const result = this.constructor.validate(this.$fieldValues(), fields);
+    const result = this.constructor.$validate(this.$fieldValues(), fields);
 
     if (!result.invalid) return;
 
