@@ -2,28 +2,30 @@
 
 import FormValidator from '../FormValidator';
 
-export default class Accepted {
+export default class AlphaDash {
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'accepted';
+    return 'alpha_dash';
   }
 
   /**
    * Check if a field's value passes the validation rule.
    *
    * @param {any} value Value of the field to be validated
-   * @param {Object} values Values of other fields
    */
   passes(value) {
-    return value === 'yes' || value === 'on' || value === 1 || value === true;
+    return Boolean(String(value).match(/^[A-Za-z0-9_-]+$/));
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Accepted.name(), 'This field must be accepted');
+    return FormValidator.$translation(
+      AlphaDash.name(),
+      'This field must contain alpha-numeric characters as well as underscores or dashes',
+    );
   }
 }
