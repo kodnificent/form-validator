@@ -288,7 +288,7 @@ export default class FormValidator {
    *
    * @param {Object} transalations
    * An object containing transalations with the rule name as key
-   * and transalation message as value.
+   * and translation message as value.
    */
   static $withTranslations(transalations) {
     if (!this.$translations) {
