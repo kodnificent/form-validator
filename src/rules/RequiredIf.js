@@ -9,7 +9,7 @@ export default class RequiredIf {
    *
    * @param {array} parameters
    */
-  constructor([dependentField, value]) {
+  constructor(dependentField, value) {
     this.other = dependentField;
     this.value = value;
   }

@@ -1,9 +1,7 @@
 import RequiredIf from '../../src/rules/RequiredIf';
-import FormValidator from '../../src/FormValidator';
 
 describe('RequiredIf rule', () => {
-  const parameters = FormValidator.$ruleParameters('required_if:name,victor');
-  const rule = new RequiredIf(parameters);
+  const rule = new RequiredIf('name', 'victor');
   const value = 'fullstack developer';
 
   test('should pass if dependent field is present and validated field is not empty', () => {

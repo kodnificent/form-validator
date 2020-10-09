@@ -8,7 +8,7 @@ export default class Different {
    *
    * @param {array} parameters
    */
-  constructor([param1]) {
+  constructor(param1) {
     this.otherField = param1;
   }
 
