@@ -1,0 +1,28 @@
+/* eslint-disable class-methods-use-this */
+
+import FormValidator from '../FormValidator';
+
+export default class Boolean {
+  /**
+   * Get the name of the validation rule.
+   */
+  static name() {
+    return 'boolean';
+  }
+
+  /**
+   * Check if a field's value passes the validation rule.
+   *
+   * @param {any} value Value of the field to be validated
+   */
+  passes(value) {
+    return [true, false, 'true', 'false', '1', '0', 1, 0].includes(value);
+  }
+
+  /**
+   * Get the rule's error message.
+   */
+  message() {
+    return FormValidator.$translation(Boolean.name(), 'The field must be a boolean');
+  }
+}
