@@ -2,12 +2,12 @@
 
 import FormValidator from '../FormValidator';
 
-export default class AlphaDash {
+export default class AlphaNum {
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'alpha_dash';
+    return 'alpha_num';
   }
 
   /**
@@ -16,7 +16,7 @@ export default class AlphaDash {
    * @param {any} value Value of the field to be validated
    */
   passes(value) {
-    return Boolean(String(value).match(/^[A-Za-z0-9_-]+$/));
+    return Boolean(String(value).match(/^[A-Za-z0-9]+$/));
   }
 
   /**
@@ -24,8 +24,8 @@ export default class AlphaDash {
    */
   message() {
     return FormValidator.$translation(
-      AlphaDash.name(),
-      'This field must contain only alpha-numeric characters as well as underscores or dashes',
+      AlphaNum.name(),
+      'This field must contain only alpha-numeric characters',
     );
   }
 }
