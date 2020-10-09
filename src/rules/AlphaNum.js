@@ -23,9 +23,6 @@ export default class AlphaNum {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(
-      AlphaNum.name(),
-      'This field must contain only alpha-numeric characters',
-    );
+    return FormValidator.$translation(AlphaNum.name(), 'Invalid');
   }
 }

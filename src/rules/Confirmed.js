@@ -33,6 +33,6 @@ export default class Confirmed {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Confirmed.name(), 'This field must be confirmed');
+    return FormValidator.$translation(Confirmed.name(), 'Requires confirmation');
   }
 }

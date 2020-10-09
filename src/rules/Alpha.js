@@ -23,6 +23,6 @@ export default class Alpha {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Alpha.name(), 'This field must contain only alphabets');
+    return FormValidator.$translation(Alpha.name(), 'Invalid');
   }
 }

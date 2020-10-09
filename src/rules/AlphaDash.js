@@ -23,9 +23,6 @@ export default class AlphaDash {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(
-      AlphaDash.name(),
-      'This field must contain only alpha-numeric characters as well as underscores or dashes',
-    );
+    return FormValidator.$translation(AlphaDash.name(), 'Invalid');
   }
 }

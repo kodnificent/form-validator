@@ -27,6 +27,6 @@ export default class RuleName {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RuleName.name(), 'This field must be an array');
+    return FormValidator.$translation(RuleName.name(), 'Invalid');
   }
 }

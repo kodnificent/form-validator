@@ -23,6 +23,6 @@ export default class Boolean {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Boolean.name(), 'The field must be a boolean');
+    return FormValidator.$translation(Boolean.name(), 'Invalid');
   }
 }

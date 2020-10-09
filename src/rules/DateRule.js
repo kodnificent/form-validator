@@ -2,12 +2,12 @@
 
 import FormValidator from '../FormValidator';
 
-export default class Accepted {
+export default class DateRule {
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'accepted';
+    return 'date';
   }
 
   /**
@@ -17,13 +17,14 @@ export default class Accepted {
    * @param {Object} values Values of other fields
    */
   passes(value) {
-    return value === 'yes' || value === 'on' || value === 1 || value === true;
+    // eslint-disable-next-line no-restricted-globals
+    return !isNaN(Date.parse(value));
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Accepted.name(), 'Invalid');
+    return FormValidator.$translation(DateRule.name(), 'Invalid date');
   }
 }

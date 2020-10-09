@@ -35,6 +35,6 @@ export default class RequiredIf {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RequiredIf.name(), 'This field is required');
+    return FormValidator.$translation(RequiredIf.name(), 'Required');
   }
 }
