@@ -2,7 +2,7 @@
 
 import FormValidator from '../FormValidator';
 
-export default class RuleName {
+export default class ArrayRule {
   /**
    * Get the name of the validation rule.
    */
@@ -27,6 +27,6 @@ export default class RuleName {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RuleName.name(), 'Invalid');
+    return FormValidator.$translation(ArrayRule.name(), 'Invalid');
   }
 }

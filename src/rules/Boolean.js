@@ -2,7 +2,7 @@
 
 import FormValidator from '../FormValidator';
 
-export default class Boolean {
+export default class BooleanRule {
   /**
    * Get the name of the validation rule.
    */
@@ -23,6 +23,6 @@ export default class Boolean {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Boolean.name(), 'Invalid');
+    return FormValidator.$translation(BooleanRule.name(), 'Invalid');
   }
 }
