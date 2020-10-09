@@ -35,6 +35,6 @@ export default class RequiredIf {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RequiredIf.name(), 'The :attribute field is required when :other is :value');
+    return FormValidator.$translation(RequiredIf.name(), 'This field is required.');
   }
 }

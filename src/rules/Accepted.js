@@ -24,6 +24,6 @@ export default class Accepted {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Accepted.name(), 'The :attribute must be accepted.');
+    return FormValidator.$translation(Accepted.name(), 'This field must be accepted.');
   }
 }

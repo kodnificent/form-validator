@@ -34,6 +34,6 @@ export default class Required {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Required.name(), 'The :attribute field is required.');
+    return FormValidator.$translation(Required.name(), 'This field is required.');
   }
 }
