@@ -1,7 +1,7 @@
 import RequiredIf from '../../src/rules/RequiredIf';
 
 describe('RequiredIf rule', () => {
-  const rule = new RequiredIf('name', 'victor');
+  const rule = new RequiredIf(['name', 'victor']);
   const value = 'fullstack developer';
 
   test('should pass if dependent field is present and validated field is not empty', () => {

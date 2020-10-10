@@ -7,6 +7,7 @@ import BooleanRule from './Boolean';
 import Confirmed from './Confirmed';
 import DateRule from './DateRule';
 import Different from './Different';
+import Digits from './Digits';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -18,8 +19,9 @@ export default [
   ArrayRule,
   BooleanRule,
   Confirmed,
-  Different,
   DateRule,
+  Different,
+  Digits,
   Required,
   RequiredIf,
 ];

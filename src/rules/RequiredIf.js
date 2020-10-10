@@ -9,9 +9,9 @@ export default class RequiredIf {
    *
    * @param {array} parameters
    */
-  constructor(dependentField, value) {
-    this.other = dependentField;
-    this.value = value;
+  constructor([dependentField, dependentValue]) {
+    this.dependentField = dependentField;
+    this.dependentValue = dependentValue;
   }
 
   /**
@@ -28,7 +28,9 @@ export default class RequiredIf {
    * @param {Object} values Values of other fields
    */
   passes(value, values) {
-    return values[this.other] === this.value ? (new Required()).passes(value) : true;
+    return values[this.dependentField] === this.dependentValue
+      ? (new Required()).passes(value)
+      : true;
   }
 
   /**

@@ -227,7 +227,7 @@ export default class FormValidator {
         }
 
         const parameters = FormValidator.$ruleParameters(ruleName);
-        const validator = new Rule(...parameters);
+        const validator = new Rule(parameters);
 
         if (validator.passes(data[field.attribute], data, field.attribute)) return false;
 
