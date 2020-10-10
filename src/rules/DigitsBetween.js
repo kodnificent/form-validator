@@ -37,6 +37,6 @@ export default class DigitsBetween {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(DigitsBetween.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(DigitsBetween.name(), 'Invalid');
   }
 }

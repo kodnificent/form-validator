@@ -32,6 +32,6 @@ export default class Digits {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Digits.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(Digits.name(), 'Invalid');
   }
 }
