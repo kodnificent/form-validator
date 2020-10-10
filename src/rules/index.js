@@ -9,6 +9,7 @@ import DateRule from './DateRule';
 import Different from './Different';
 import Digits from './Digits';
 import DigitsBetween from './DigitsBetween';
+import Email from './Email';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -24,6 +25,7 @@ export default [
   Different,
   Digits,
   DigitsBetween,
+  Email,
   Required,
   RequiredIf,
 ];
