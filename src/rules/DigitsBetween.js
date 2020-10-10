@@ -2,38 +2,41 @@
 
 import FormValidator from '../FormValidator';
 
-export default class RuleName {
+export default class DigitsBetween {
   /**
    * Create an instance of the rule class.
    *
    * @param {array} parameters
    */
-  constructor(param1, param2) {
-    this.param1 = param1;
-    this.param2 = param2;
+  constructor([min, max]) {
+    this.min = min;
+    this.max = max;
   }
 
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'rule_name';
+    return 'digits_between';
   }
 
   /**
    * Check if a field's value passes the validation rule.
    *
    * @param {any} value Value of the field to be validated
-   * @param {Object} values Values of other fields
    */
-  passes(value, values) {
-    return false;
+  passes(value) {
+    if (this.min && this.max) {
+      return new RegExp(`^\\d{${this.min},${this.max}}$`).test(value);
+    }
+
+    return new RegExp(`^\\d{${this.min},}$`).test(value);
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RuleName.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(DigitsBetween.name(), 'The :attribute field is invalid');
   }
 }

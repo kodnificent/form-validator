@@ -8,6 +8,7 @@ import Confirmed from './Confirmed';
 import DateRule from './DateRule';
 import Different from './Different';
 import Digits from './Digits';
+import DigitsBetween from './DigitsBetween';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -22,6 +23,7 @@ export default [
   DateRule,
   Different,
   Digits,
+  DigitsBetween,
   Required,
   RequiredIf,
 ];
