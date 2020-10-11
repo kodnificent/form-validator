@@ -2,38 +2,36 @@
 
 import FormValidator from '../FormValidator';
 
-export default class RuleName {
+export default class EndsWith {
   /**
    * Create an instance of the rule class.
    *
    * @param {array} parameters
    */
-  constructor([param1, param2]) {
-    this.param1 = param1;
-    this.param2 = param2;
+  constructor(params) {
+    this.endValues = params;
   }
 
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'rule_name';
+    return 'ends_with';
   }
 
   /**
    * Check if a field's value passes the validation rule.
    *
    * @param {any} value Value of the field to be validated
-   * @param {Object} values Values of other fields
    */
-  passes(value, values) {
-    return false;
+  passes(value) {
+    return this.endValues.some((endValue) => value.endsWith(endValue));
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RuleName.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(EndsWith.name(), 'Invalid');
   }
 }

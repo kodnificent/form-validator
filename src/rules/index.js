@@ -10,6 +10,7 @@ import Different from './Different';
 import Digits from './Digits';
 import DigitsBetween from './DigitsBetween';
 import Email from './Email';
+import EndsWith from './EndsWith';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -26,6 +27,7 @@ export default [
   Digits,
   DigitsBetween,
   Email,
+  EndsWith,
   Required,
   RequiredIf,
 ];

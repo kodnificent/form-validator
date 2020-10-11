@@ -4,16 +4,6 @@ import FormValidator from '../FormValidator';
 
 export default class Email {
   /**
-   * Create an instance of the rule class.
-   *
-   * @param {array} parameters
-   */
-  constructor(param1, param2) {
-    this.param1 = param1;
-    this.param2 = param2;
-  }
-
-  /**
    * Get the name of the validation rule.
    */
   static name() {
@@ -33,6 +23,6 @@ export default class Email {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Email.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(Email.name(), 'Invalid');
   }
 }
