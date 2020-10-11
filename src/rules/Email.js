@@ -16,13 +16,13 @@ export default class Email {
    * @param {any} value Value of the field to be validated
    */
   passes(value) {
-    return /^\w+@\w+\.\w{2,}$/.test(value);
+    return /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9-]+\.\w{2,}$/.test(value);
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(Email.name(), 'Invalid');
+    return FormValidator.$translation(Email.name(), 'Invalid email');
   }
 }

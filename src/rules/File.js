@@ -23,6 +23,6 @@ export default class FileRule {
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(FileRule.name(), 'The :attribute field is invalid');
+    return FormValidator.$translation(FileRule.name(), 'Invalid file');
   }
 }

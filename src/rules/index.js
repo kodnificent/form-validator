@@ -12,6 +12,7 @@ import DigitsBetween from './DigitsBetween';
 import Email from './Email';
 import EndsWith from './EndsWith';
 import FileRule from './File';
+import GreaterThan from './GreaterThanOrEqual';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -30,6 +31,7 @@ export default [
   Email,
   EndsWith,
   FileRule,
+  GreaterThan,
   Required,
   RequiredIf,
 ];
