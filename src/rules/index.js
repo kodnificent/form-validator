@@ -14,6 +14,7 @@ import EndsWith from './EndsWith';
 import FileRule from './File';
 import GreaterThan from './GreaterThan';
 import GreaterThanOrEqual from './GreaterThanOrEqual';
+import In from './In';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 
@@ -34,6 +35,7 @@ export default [
   FileRule,
   GreaterThan,
   GreaterThanOrEqual,
+  In,
   Required,
   RequiredIf,
 ];
