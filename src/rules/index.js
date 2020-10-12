@@ -5,6 +5,7 @@ import AlphaNum from './AlphaNum';
 import ArrayRule from './Array';
 import BooleanRule from './Boolean';
 import Confirmed from './Confirmed';
+import Contains from './Contains';
 import DateRule from './DateRule';
 import Different from './Different';
 import Digits from './Digits';
@@ -26,6 +27,7 @@ export default [
   ArrayRule,
   BooleanRule,
   Confirmed,
+  Contains,
   DateRule,
   Different,
   Digits,
