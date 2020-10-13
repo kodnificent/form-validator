@@ -18,6 +18,7 @@ import GreaterThanOrEqual from './GreaterThanOrEqual';
 import In from './In';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
+import StartsWith from './StartsWith';
 
 export default [
   Accepted,
@@ -40,4 +41,5 @@ export default [
   In,
   Required,
   RequiredIf,
+  StartsWith,
 ];
