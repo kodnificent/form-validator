@@ -16,6 +16,8 @@ import FileRule from './File';
 import GreaterThan from './GreaterThan';
 import GreaterThanOrEqual from './GreaterThanOrEqual';
 import In from './In';
+import LessThan from './LessThan';
+import LessThanOrEqual from './LessThanOrEqual';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 import StartsWith from './StartsWith';
@@ -39,6 +41,8 @@ export default [
   GreaterThan,
   GreaterThanOrEqual,
   In,
+  LessThan,
+  LessThanOrEqual,
   Required,
   RequiredIf,
   StartsWith,
