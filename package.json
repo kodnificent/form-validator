@@ -1,5 +1,5 @@
 {
-  "name": "form-validator",
+  "name": "@kodnificent/form-validator",
   "version": "1.0.0",
   "description": "Javascript library for client side html form validation.",
   "main": "dist/form-validator.js",
