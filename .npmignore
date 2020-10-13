@@ -1,0 +1,26 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# docs
+/docs
+
+# misc
+/.github
+/demo
+.esdoc.json
+.editorconfig
+.eslintignore
+.eslintrc.js
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Development folders and files
+__test__
+webpack.mix.js
+CHANGELOG.md
+README.md
