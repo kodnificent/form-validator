@@ -1,6 +1,9 @@
 import FormValidator from '../src/FormValidator';
+import rules from '../src/rules';
 
 describe('Static FormValidator', () => {
+  FormValidator.$withRule(...rules);
+
   test('should swap placeholders correctly', () => {
     const dob = 'Date of birth';
 
@@ -90,6 +93,33 @@ describe('Static FormValidator', () => {
     expect(Object.keys(result.errors).length).toEqual(1);
   });
 
+  test('should validate form will callback rule', () => {
+    const data = {
+      name: 'testname',
+      email: 'testemail'
+    }
+
+    const fields = {
+      name: {
+        rules: [function (value, data, attribute) {
+          return value === 'testname' && data.email === 'testemail' && attribute === 'name';
+        }],
+        attribute: 'name'
+      },
+      email: {
+        rules: [function () {
+          return 'Invalid email';
+        }],
+        attribute: 'email'
+      }
+    };
+
+    const result = FormValidator.$validate(data, fields);
+    expect(result.invalid).toBeTruthy();
+    expect(Object.keys(result.errors).length).toEqual(1);
+    expect(result.errors.email).toBe('Invalid email');
+  });
+
   test('should extract rule parameters correctly', () => {
     const rule = 'required_if:name,victor';
     const parameter = FormValidator.$ruleParameters(rule);
@@ -120,7 +150,7 @@ describe('Instantiated FormValidator', () => {
     const el = document.querySelector(`[name=${formName}]`);
     const newValidator = new FormValidator(el);
 
-    expect(validator.$form.name).toBe(formName);
+    expect(newValidator.$form.name).toBe(formName);
   });
 
   test('should assign our test form to its $form variable', () => {

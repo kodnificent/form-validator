@@ -1,5 +1,6 @@
 import validatorMixin from './mixins/validator';
 import FormValidatorData from './FormValidatorData';
+import CallbackValidator from './CallbackValidator';
 
 // Note that all properties and methods should be prepended with a $
 // to enable one differentiate core methods or properties from props
@@ -211,35 +212,52 @@ export default class FormValidator {
     };
 
     Object.values(fields).forEach((field) => {
-      const messages = [];
+      let errorMessage;
+      let validator;
+      const value = data[field.attribute];
+      const values = data;
+      const { attribute } = field;
 
       field.rules.some((ruleName) => {
-        // the bail rule means we should stop validating after first validation.
-        if (ruleName === 'bail') return false;
+        if (typeof ruleName === 'function') {
+          validator = new CallbackValidator(ruleName);
+        } else {
+          const Rule = FormValidator.$findRule(ruleName);
 
-        const Rule = FormValidator.$findRule(ruleName);
+          if (!Rule) {
+            // note that if the rule does not exist,
+            // we still assign an error to the field.
+            errorMessage = 'Invalid rule';
 
-        if (!Rule) {
-          // note that if the rule does not exist,
-          // we still assign an error to the field.
-          messages.push('Invalid rule');
-          return false;
+            return false;
+          }
+
+          const parameters = FormValidator.$ruleParameters(ruleName);
+          validator = new Rule(parameters);
         }
 
-        const parameters = FormValidator.$ruleParameters(ruleName);
-        const validator = new Rule(parameters);
+        // we only want to run a validation rule if the field value is present
+        // just like saying the field can be nullable but only validate
+        // when it has a value.
+        if (ruleName !== 'required') {
+          // we know the value is empty if it fails the required rule.
+          const RequiredRule = FormValidator.$findRule('required');
+          const empty = !(new RequiredRule()).passes(value);
+          if (empty) return false; // pass validation
+        }
 
-        if (validator.passes(data[field.attribute], data, field.attribute)) return false;
+        if (validator.passes(value, values, attribute)) return false;
 
-        let message = validator.message() ?? 'Invalid rule';
+        // validation fails
+        let message = validator.message() ?? 'Invalid';
         message = message.replace(':attribute', field.attribute);
-        messages.push(message);
+        errorMessage = message;
 
-        // we stop validating after first validation.
-        return field.rules[0] === 'bail' && field.rules[1] === ruleName;
+        // we stop validating after first failure.
+        return true;
       });
 
-      if (messages.length > 0) result.errors[field.attribute] = messages;
+      if (errorMessage) result.errors[field.attribute] = errorMessage;
     });
 
     result.invalid = Object.keys(result.errors).length > 0;
