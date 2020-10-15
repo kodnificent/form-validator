@@ -79,13 +79,13 @@ export default class FormValidator {
       });
     } else {
       // alternatively, we search through the html fields for rules.
-      [...this.$form.querySelectorAll('[data-rules]')].forEach((el) => {
+      [...this.$form.querySelectorAll('[name]')].forEach((el) => {
         const name = el.getAttribute('name');
         // @todo through error if name is null or undefined
 
         const data = {
           attribute: name,
-          rules: el.getAttribute('data-rules').split('|'),
+          rules: el.getAttribute('data-rules') ? el.getAttribute('data-rules').split('|') : [],
           el,
           els: this.$form.querySelectorAll(`[name=${name}]`),
         };
