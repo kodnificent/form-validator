@@ -12,11 +12,11 @@ It ships with many core validation rules and also gives you room to add customiz
 ### Via CDN
 
 ```html
-<script src="https://unpkg.com/@kodnificent/form-validator^1"></script>
+<script src="https://unpkg.com/@kodnificent/form-validator@1"></script>
 
 <!-### Minified version (Production use) -->
 
-<script src="https://unpkg.com/@kodnificent/form-validator^1/dist/form-validator.min.js"></script>
+<script src="https://unpkg.com/@kodnificent/form-validator@1/dist/form-validator.min.js"></script>
 ```
 
 ## Quick Start
