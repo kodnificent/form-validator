@@ -12,11 +12,11 @@ It ships with many core validation rules and also gives you room to add customiz
 ### Via CDN
 
 ```html
-<script src="https://unpkg.com/@kodnificent/form-validator^1"></script>
+<script src="https://unpkg.com/@kodnificent/form-validator@1"></script>
 
 <!-- Minified version (Production use) -->
 
-<script src="https://unpkg.com/@kodnificent/form-validator^1/dist/form-validator.min.js"></script>
+<script src="https://unpkg.com/@kodnificent/form-validator@1/dist/form-validator.min.js"></script>
 ```
 
 ## Quick Start
@@ -33,23 +33,18 @@ There are two ways to validate your HTML form using FormValidator
 <form id="my-form">
   <div>
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" data-rules="required,alpha_num"><br>
+    <input type="text" id="username" name="username" data-rules="required|alpha_num"><br>
     <span data-username-feedback></span>
   </div>
   <div>
     <label for="email">Email:</label>
-    <input type="text" id="email" name="email" data-rules="required,email"><br>
+    <input type="text" id="email" name="email" data-rules="required|email"><br>
     <span data-email-feedback></span>
   </div>
   <div>
     <label for="password">Password:</label>
     <input type="text" id="password" name="password" data-rules="required"><br>
     <span data-password-feedback></span>
-  </div>
-  <div>
-    <label for="password_confirmation">Password:</label>
-    <input type="text" id="password_confirmation" name="password_confirmation" data-rules="confirmed"><br>
-    <span data-password-confirmation-feedback></span>
   </div>
   <div>
     <button>submit</button>
