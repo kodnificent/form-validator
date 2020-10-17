@@ -11,6 +11,7 @@ export default {
     return {
       placeholders: null,
       rules: null,
+      messages: null,
       fieldSelector: '[name=:attribute]',
       feedbackSelector: '[data-:attribute-feedback]',
       beforeValidate: this.beforeValidate,
