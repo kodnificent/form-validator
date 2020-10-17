@@ -18,6 +18,7 @@ import GreaterThanOrEqual from './GreaterThanOrEqual';
 import In from './In';
 import LessThan from './LessThan';
 import LessThanOrEqual from './LessThanOrEqual';
+import Regex from './Regex';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
 import Same from './Same';
@@ -44,6 +45,7 @@ export default [
   In,
   LessThan,
   LessThanOrEqual,
+  Regex,
   Required,
   RequiredIf,
   Same,
