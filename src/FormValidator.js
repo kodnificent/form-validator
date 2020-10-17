@@ -14,6 +14,7 @@ export default class FormValidator {
    * @param {Object} [options]
    * @param {Object} options.placeholders
    * @param {Object|string} options.rules
+   * @param {object} options.messages
    * @param {boolean} options.onBlur
    * @param {boolean} options.onInput
    * @param {string} options.fieldSelector
@@ -99,6 +100,9 @@ export default class FormValidator {
       // and query the feedback el to each field.
       field.feedbackSelector = this.feedbackSelector.replace(':attribute', field.attribute);
       field.feedbackEl = this.$form.querySelector(field.feedbackSelector);
+
+      // we assign custom field rule messages to the field
+      field.messages = this.messages?.[field.attribute] ?? null;
 
       // next we add a change event to all field elements
       if (typeof this.onChange === 'function') {
@@ -249,16 +253,17 @@ export default class FormValidator {
         if (validator.passes(value, values, attribute)) return false;
 
         // validation fails
-        let message = validator.message() ?? 'Invalid';
+        const validatorMessage = field.messages?.[String(ruleName)] ?? validator.message();
+        let message = validatorMessage ?? 'Invalid';
         message = message.replace(':attribute', field.attribute);
         errorMessage = message;
 
         // we stop validating after first failure.
         return true;
-      });
+      }, this);
 
       if (errorMessage) result.errors[field.attribute] = errorMessage;
-    });
+    }, this);
 
     result.invalid = Object.keys(result.errors).length > 0;
 

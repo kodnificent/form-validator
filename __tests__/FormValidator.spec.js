@@ -148,9 +148,9 @@ describe('Instantiated FormValidator', () => {
 
   test('should setup validator form element as selector', () => {
     const el = document.querySelector(`[name=${formName}]`);
-    const newValidator = new FormValidator(el);
+    const instance = new FormValidator(el);
 
-    expect(newValidator.$form.name).toBe(formName);
+    expect(instance.$form.name).toBe(formName);
   });
 
   test('should assign our test form to its $form variable', () => {
