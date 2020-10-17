@@ -20,6 +20,7 @@ import LessThan from './LessThan';
 import LessThanOrEqual from './LessThanOrEqual';
 import Required from './Required';
 import RequiredIf from './RequiredIf';
+import Same from './Same';
 import StartsWith from './StartsWith';
 
 export default [
@@ -45,5 +46,6 @@ export default [
   LessThanOrEqual,
   Required,
   RequiredIf,
+  Same,
   StartsWith,
 ];

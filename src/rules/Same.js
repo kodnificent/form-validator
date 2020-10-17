@@ -2,22 +2,21 @@
 
 import FormValidator from '../FormValidator';
 
-export default class RuleName {
+export default class Same {
   /**
    * Create an instance of the rule class.
    *
    * @param {array} parameters
    */
-  constructor([param1, param2]) {
-    this.param1 = param1;
-    this.param2 = param2;
+  constructor([param1]) {
+    this.fieldName = param1;
   }
 
   /**
    * Get the name of the validation rule.
    */
   static name() {
-    return 'rule_name';
+    return 'same';
   }
 
   /**
@@ -27,13 +26,13 @@ export default class RuleName {
    * @param {Object} values Values of other fields
    */
   passes(value, values) {
-    return false;
+    return value === values[this.fieldName];
   }
 
   /**
    * Get the rule's error message.
    */
   message() {
-    return FormValidator.$translation(RuleName.name(), 'Invalid');
+    return FormValidator.$translation(Same.name(), 'Invalid');
   }
 }
