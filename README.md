@@ -47,11 +47,6 @@ There are two ways to validate your HTML form using FormValidator
     <span data-password-feedback></span>
   </div>
   <div>
-    <label for="password_confirmation">Password:</label>
-    <input type="text" id="password_confirmation" name="password_confirmation" data-rules="confirmed"><br>
-    <span data-password-confirmation-feedback></span>
-  </div>
-  <div>
     <button>submit</button>
   </div>
 </form>
