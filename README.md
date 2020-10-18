@@ -51,7 +51,7 @@ It handles error message display and handles validation when a change event is f
 
 ## Validating a form
 
-To validate a HTML Form you have to call the `new` keyword on the FormValidator class and
+To validate a HTML Form you have to make a new instance the FormValidator class and
 optionally pass the form selector and options as parameters.
 
 When instantiating the class without any parameters, FormValidator will use `'form'` as
@@ -89,12 +89,9 @@ The second paramater of the FormValidator constructor should be an object contai
 | Key      | Type       | Description                                       | Default |
 |----------|------------|---------------------------------------------------|---------|
 | rules    | object     | An object containing rules for each form field.   | `null`  |
-| messages | object     | An object containing messages that will be thrown when a field fails validation for a rule
-| `null` |
-| fieldSelector | string | Used for selecting target fields in the HTML form when rules are defined in the options
-| `[name=:attribute]` |
-| feedbackSelector | string | Used for selecting the target element when error messages for each field will be placed
-| `[data-:attribute-feedback]` |
+| messages | object     | An object containing messages that will be thrown when a field fails validation for a rule | `null` |
+| fieldSelector | string | Used for selecting target fields in the HTML form when rules are defined in the options | `[name=:attribute]` |
+| feedbackSelector | string | Used for selecting the target element when error messages for each field will be placed | `[data-:attribute-feedback]` |
 | beforeValidate | function | Callback to call before validating the form | `function` |
 | onInvalid | function | Callback to call when there is a validation error on a form | `function` |
 | onChange | function | Callback to call when a field's value changes | `function` |
@@ -164,38 +161,30 @@ FormValidator ships with some core rules that contains most of the validation ru
 
 | key            | Description                                                                    |
 |----------------|--------------------------------------------------------------------------------|
-| `accepted`     | The field under validation must be accepted. Accepted values are `yes`, `on`,
-`1` or `true`. This rule comes in handy when validating a terms and condition field. |
+| `accepted`     | The field under validation must be accepted. Accepted values are `yes`, `on`, `1` or `true`. This rule comes in handy when validating a terms and condition field. |
 | `alpha`        | The field must contain only alphabets. |
 | `alpha_dash`   | The field must contain only alphanumeric characters as well as dashes and underscores. |
 | `alpha_num`    | The field must contain only alphanumeric characters. |
 | `array`        | The field must be an array. |
-| `boolean`      | The field must be able to cast to a boolean. Accepted values are `1`, `0`, `true`, `false`,
-`'1'`, `'0'`, `'true'`, `'false'`. |
+| `boolean`      | The field must be able to cast to a boolean. Accepted values are `1`, `0`, `true`, `false`, `'1'`, `'0'`, `'true'`, `'false'`. |
 | `contains:param1,param2` | The field under validation must contain any of the given parameters. |
 | `date`         | The field under validation must be a validate date. |
-| `different:field` | The field under validation must have a different value from another field.
-E.g A `secondary_email` field might have this rule `different:email`. |
-| `digits:length` | The field under validation must be a digit with a specific length. E.g a `pin` field
-might have this rule `digits:4` to validate a 4 digit pin. |
+| `different:field` | The field under validation must have a different value from another field. E.g A `secondary_email` field might have this rule `different:email`. |
+| `digits:length` | The field under validation must be a digit with a specific length. E.g a `pin` field might have this rule `digits:4` to validate a 4 digit pin. |
 | `digits_between:min,max` | The field under validation must be a digit and have a length between the specified min and max. |
 | `email`         | The field under validation must be a valid email address. |
-| `ends_with:value1,value2,...` | The field under validation must end with any of the given list of values.
-E.g `ends_with:.com,.io,.com.ng`. |
+| `ends_with:value1,value2,...` | The field under validation must end with any of the given list of values. E.g `ends_with:.com,.io,.com.ng`. |
 | `file`          | The field under validation must be a valid file. |
 | `gt:someOtherField` | The value of the field under validation must be greater than another field. |
 | `gte:someOtherField` | The value of the field under validation must be greater than or equal to another field. |
 | `in:value1,value2,...`  | The field under validation must be included in any of the given list of values. |
 | `lt:someOtherField` | The value of the field under validation must be less than another field. |
 | `lte:someOtherField` | The value of the field under validation must be less than or equal to another field. |
-| `regex:pattern` | The field under validation must match the regular expression pattern. Make sure that you escape
-special characters. |
+| `regex:pattern` | The field under validation must match the regular expression pattern. Make sure that you escape special characters. |
 | `required`      | The field under validation must be present and not null or undefined or an empty string. |
 | `required_if:otherField,value` | The field under validation is required if another field has a specific value. |
-| `same:field`    | The field under validation must have the same value as another field. E.g a `confirm_password`
-field may have this rule `same:password` |
-| `starts_with:value1,value2,...` | The field under validation must start with any of the given list of values.
-E.g `starts_with:https://facebook.com,https://fb.com` |
+| `same:field`    | The field under validation must have the same value as another field. E.g a `confirm_password` field may have this rule `same:password` |
+| `starts_with:value1,value2,...` | The field under validation must start with any of the given list of values. E.g `starts_with:https://facebook.com,https://fb.com` |
 
 ## Resources
 
