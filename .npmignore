@@ -21,6 +21,9 @@ yarn-error.log*
 
 # Development folders and files
 __test__
-webpack.mix.js
+webpack.config.js
 CHANGELOG.md
 README.md
+CONTRIBUTING.md
+UPGRADE_GUIDE.md
+CODE_OF_CONDUCT.md
