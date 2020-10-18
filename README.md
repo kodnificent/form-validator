@@ -22,14 +22,6 @@ It handles error message display and handles validation when a change event is f
 
 ## Quick Start
 
-There are two ways to validate your HTML form using FormValidator
-
-1. Inline validation.
-
-2. External validation.
-
-### Inline Validation
-
 ```html
 <form id="my-form">
   <div>
